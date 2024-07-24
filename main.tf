@@ -36,3 +36,12 @@ resource "aws_security_group" "sg" {
   }
 }
 
+resource "aws_route53_record" "record" {
+  count   = length(var.components)
+  zone_id = "Z007676254S94NU47MG"
+  name    = "${var.components[count.index]}-${var.env}"
+  type    = "A"
+  ttl     = 10
+  records = [aws_instance.instances.*.private_ip[count.index]]
+}
+
