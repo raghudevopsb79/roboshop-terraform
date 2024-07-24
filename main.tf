@@ -2,7 +2,7 @@ resource "aws_instance" "instances" {
   count                  = length(var.components)
   ami                    = data.aws_ami.rhel9.image_id
   instance_type          = "t3.small"
-  vpc_security_group_ids = [aws_security_group.sg.id]
+  vpc_security_group_ids = [aws_security_group.sg.*.id[count.index]]
 
   tags = {
     Name = "${var.components[count.index]}-${var.env}"
