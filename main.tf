@@ -45,3 +45,20 @@ resource "aws_route53_record" "record" {
   records = [aws_instance.instances.*.private_ip[count.index]]
 }
 
+resource "null_resource" "prompt" {
+  count = length(var.components)
+
+  provisioner "remote-exec" {
+    connection {
+      host     = aws_instance.instances.*.private_ip[count.index]
+      user     = "ec2-user"
+      password = "DevOps321"
+    }
+
+    inline = [
+      "sudo set-prompt -skip-apply ${var.components[count.index]}-${var.env}"
+    ]
+
+  }
+
+}
