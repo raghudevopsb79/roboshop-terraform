@@ -51,12 +51,14 @@ resource "null_resource" "prompt" {
   provisioner "remote-exec" {
     connection {
       host     = aws_instance.instances.*.private_ip[count.index]
-      user     = "ec2-user"
-      password = "DevOps321"
+      user     = data.vault_generic_secret.ssh.data["username"]
+      password = data.vault_generic_secret.ssh.data["password"]
     }
 
     inline = [
-      "sudo set-prompt -skip-apply ${var.components[count.index]}-${var.env}"
+      "sudo set-prompt -skip-apply ${var.components[count.index]}-${var.env}",
+      "sudo pip3.11 install ansible",
+      "ansible-pull -i localhost, -e env=${var.env} -e ansible_user=${data.vault_generic_secret.ssh.data["username"]} -e ansible_password=${data.vault_generic_secret.ssh.data["password"]} -e component=${var.components[count.index]} -e vault_token=${var.vault_token} main.yml"
     ]
 
   }

@@ -4,3 +4,8 @@ data "aws_ami" "rhel9" {
   owners      = ["973714476881"]
 }
 
+data "vault_generic_secret" "ssh" {
+  path = "common/ssh-creds"
+}
+
+
