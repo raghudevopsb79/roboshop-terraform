@@ -58,7 +58,7 @@ resource "null_resource" "prompt" {
     inline = [
       "sudo set-prompt -skip-apply ${var.components[count.index]}-${var.env}",
       "sudo pip3.11 install ansible",
-      "ansible-pull -i localhost, -e env=${var.env} -e component=${var.components[count.index]} -e vault_token=${var.vault_token} main.yml"
+      "ansible-pull -i localhost, -U https://github.com/raghudevopsb79/roboshop-ansible -e env=${var.env} -e component=${var.components[count.index]} -e vault_token=${var.vault_token} main.yml"
     ]
 
   }
