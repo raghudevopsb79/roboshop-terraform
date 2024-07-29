@@ -10,3 +10,12 @@ resource "aws_subnet" "subnet" {
 }
 
 
+resource "aws_route_table" "route-table" {
+  count  = length(var.cidr)
+  vpc_id = var.vpc_id
+
+  tags = {
+    Name = "${var.name}-${var.env}-${split("-", var.availability_zones[count.index])[2]}"
+  }
+}
+
