@@ -46,7 +46,8 @@ resource "aws_route53_record" "record" {
 }
 
 resource "null_resource" "prompt" {
-  count = length(var.components)
+  count      = length(var.components)
+  depends_on = [aws_route53_record.record]
 
   provisioner "remote-exec" {
     connection {
