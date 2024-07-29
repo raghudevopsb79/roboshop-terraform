@@ -18,6 +18,7 @@ module "subnets" {
   env                = var.env
 
   vpc_id = aws_vpc.vpc.id
+  ngw_ids = aws_nat_gateway.ngw.*.id
 }
 
 resource "aws_eip" "ngw" {
@@ -34,6 +35,7 @@ resource "aws_nat_gateway" "ngw" {
     Name = "ngw-${split("-", var.availability_zones[count.index])[2]}"
   }
 }
+
 
 
 

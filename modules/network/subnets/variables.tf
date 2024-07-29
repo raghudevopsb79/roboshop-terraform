@@ -3,3 +3,4 @@ variable "cidr" {}
 variable "env" {}
 variable "availability_zones" {}
 variable "name" {}
+variable "ngw_ids" {}
