@@ -1,5 +1,5 @@
+variable "vpc_id" {}
 variable "cidr" {}
-variable "subnets" {}
 variable "env" {}
 variable "availability_zones" {}
-
+variable "name" {}
