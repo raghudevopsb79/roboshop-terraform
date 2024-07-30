@@ -57,7 +57,8 @@ resource "aws_route" "on-peer-side" {
 }
 
 output "peers" {
-  value = merge(aws_vpc_peering_connection.peers,var.peering_vpcs)
+#   value = merge(aws_vpc_peering_connection.peers,var.peering_vpcs)
+  value = { for k ,v in var.peering_vpcs :  route_table_id => v}
 }
 
 
