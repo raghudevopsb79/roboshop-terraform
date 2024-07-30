@@ -9,7 +9,3 @@ module "network" {
 
   env = var.env
 }
-
-output "peers" {
-  value = module.network
-}

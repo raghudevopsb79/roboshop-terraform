@@ -17,9 +17,9 @@ module "subnets" {
   availability_zones = var.availability_zones
   env                = var.env
 
-  vpc_id  = aws_vpc.vpc.id
-  ngw_ids = aws_nat_gateway.ngw.*.id
-  #vpc_peering_ids = aws_vpc_peering_connection.peers
+  vpc_id          = aws_vpc.vpc.id
+  ngw_ids         = aws_nat_gateway.ngw.*.id
+  vpc_peering_ids = zipmap(local.peering_ids, local.peering_target_cidr)
 }
 
 resource "aws_eip" "ngw" {
@@ -54,11 +54,6 @@ resource "aws_route" "on-peer-side" {
   route_table_id            = each.value["route_table_id"]
   destination_cidr_block    = var.cidr
   vpc_peering_connection_id = aws_vpc_peering_connection.peers[each.key].id
-}
-
-output "peers" {
-#   value = merge(aws_vpc_peering_connection.peers,var.peering_vpcs)
-  value = { for k ,v in var.peering_vpcs :  route_table_id => v["route_table_id"]}
 }
 
 
