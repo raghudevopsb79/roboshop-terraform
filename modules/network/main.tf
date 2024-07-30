@@ -48,5 +48,11 @@ resource "aws_vpc_peering_connection" "peers" {
   }
 }
 
+resource "aws_route" "on-peer-side" {
+  for_each                  = var.peering_vpcs
+  route_table_id            = each.value["route_table_id"]
+  destination_cidr_block    = var.cidr
+  vpc_peering_connection_id = aws_vpc_peering_connection.peers[each.key].id
+}
 
 
