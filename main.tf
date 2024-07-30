@@ -11,5 +11,5 @@ module "network" {
 }
 
 output "peers" {
-  value = module.network.peers
+  value = module.network
 }
