@@ -17,7 +17,7 @@ module "subnets" {
   availability_zones = var.availability_zones
   env                = var.env
 
-  vpc_id = aws_vpc.vpc.id
+  vpc_id  = aws_vpc.vpc.id
   ngw_ids = aws_nat_gateway.ngw.*.id
 }
 
@@ -36,7 +36,17 @@ resource "aws_nat_gateway" "ngw" {
   }
 }
 
+## Peering
+resource "aws_vpc_peering_connection" "peers" {
+  for_each    = var.peering_vpcs
+  peer_vpc_id = each.value["id"]
+  vpc_id      = aws_vpc.vpc.id
+  auto_accept = true
 
+  tags = {
+    Name = "${each.key}-peer"
+  }
+}
 
 
 
