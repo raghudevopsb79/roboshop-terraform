@@ -1,4 +1,5 @@
 env = "dev"
+bastion_nodes = ["172.31.23.77/32"]
 
 
 vpc = {
@@ -40,3 +41,14 @@ vpc = {
   }
 }
 
+db_servers = {
+  rabbitmq = {
+    instance_type = "t3.small"
+    ports = {
+      rabbitmq = {
+        port = 5672
+        cidr = ["10.0.4.0/24", "10.0.5.0/24"]
+      }
+    }
+  }
+}
