@@ -42,7 +42,7 @@ module "app" {
   instance_type = each.value["instance_type"]
 
   vpc_id     = module.network["main"].vpc_id
-  subnet_ids = module.network["main"].subnets["db"].subnets
+  subnet_ids = module.network["main"].subnets["app"].subnets
 }
 
 module "web" {
@@ -60,6 +60,6 @@ module "web" {
   instance_type = each.value["instance_type"]
 
   vpc_id     = module.network["main"].vpc_id
-  subnet_ids = module.network["main"].subnets["db"].subnets
+  subnet_ids = module.network["main"].subnets["web"].subnets
 }
 
