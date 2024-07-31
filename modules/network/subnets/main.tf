@@ -24,6 +24,12 @@ resource "aws_route_table" "route-table" {
   tags = {
     Name = "${var.name}-${var.env}-${split("-", var.availability_zones[count.index])[2]}"
   }
+
+  lifecycle {
+    ignore_changes = [
+      route
+    ]
+  }
 }
 
 resource "aws_route_table_association" "rt-association" {
@@ -55,5 +61,13 @@ resource "aws_route" "ngw-route" {
   nat_gateway_id         = var.ngw_ids[count.index]
 }
 
-
-
+# locals {
+#   peer_with_routes = {for i in aws_route_table.route-table.*.id: i => var.vpc_peering_ids}
+# }
+#
+# resource "aws_route" "peer-route" {
+#   for_each = local.peer_with_routes
+#   route_table_id         = each.key
+#   destination_cidr_block = "0.0.0.0/0"
+#   nat_gateway_id         = var.ngw_ids[count.index]
+# }
