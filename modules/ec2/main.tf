@@ -32,3 +32,15 @@ resource "aws_security_group" "main" {
     Name = "${var.name}-${var.env}-sg"
   }
 }
+
+resource "aws_instance" "main" {
+  ami                    = data.aws_ami.rhel9.image_id
+  instance_type          = var.instance_type
+  vpc_security_group_ids = [aws_security_group.main.id]
+  subnet_id              = var.subnet_ids[0]
+
+  tags = {
+    Name = "${var.name}-${var.env}"
+  }
+}
+
