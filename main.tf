@@ -14,7 +14,8 @@ module "db" {
   source   = "./modules/ec2"
   for_each = var.db_servers
 
-  env = var.env
+  env           = var.env
+  bastion_nodes = var.bastion_nodes
 
   name          = each.key
   ports         = each.value["ports"]

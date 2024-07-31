@@ -1,4 +1,4 @@
-env = "dev"
+env           = "dev"
 bastion_nodes = ["172.31.23.77/32"]
 
 
