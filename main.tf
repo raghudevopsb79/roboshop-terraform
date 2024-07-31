@@ -21,7 +21,7 @@ module "db" {
   ports         = each.value["ports"]
   instance_type = each.value["instance_type"]
 
-  vpc_id     = module.network.vpc_id
-  subnet_ids = module.network.subnets["db"].subnets
+  vpc_id     = module.network["main"].vpc_id
+  subnet_ids = module.network["main"].subnets["db"].subnets
 }
 
