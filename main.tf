@@ -73,7 +73,7 @@ module "load-balancers" {
 
   vpc_id      = module.network["main"].vpc_id
   subnet_ids  = module.network["main"].subnets["public"].subnets
-  instance_id = module.web.instance_id
+  instance_id = module.web["frontend"].instance_id
 
   env = var.env
 }
