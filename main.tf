@@ -64,12 +64,12 @@ module "web" {
 }
 
 module "load-balancers" {
-  source = "./modules/load-balancers"
+  source   = "./modules/load-balancers"
   for_each = var.load_balancers
 
-  name = each.key
+  name               = each.key
   load_balancer_type = each.value["load_balancer_type"]
-  internal = each.value["internal"]
+  internal           = each.value["internal"]
 
   vpc_id     = module.network["main"].vpc_id
   subnet_ids = module.network["main"].subnets["public"].subnets
