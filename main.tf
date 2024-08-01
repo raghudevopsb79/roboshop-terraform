@@ -63,3 +63,17 @@ module "web" {
   subnet_ids = module.network["main"].subnets["web"].subnets
 }
 
+module "load-balancers" {
+  source = "./modules/load-balancers"
+  for_each = var.load_balancers
+
+  name = each.key
+  load_balancer_type = each.value["load_balancer_type"]
+  internal = each.value["internal"]
+
+  vpc_id     = module.network["main"].vpc_id
+  subnet_ids = module.network["main"].subnets["public"].subnets
+
+  env = var.env
+}
+
