@@ -68,7 +68,10 @@ resource "null_resource" "ansible" {
     }
 
     inline = [
-      "sudo dnf install docker -y"
+      "sudo set-prompt -skip-apply ${var.name}-${var.env}",
+      "sudo dnf install docker -y",
+      "sudo growpart /dev/nvme0n1 4",
+      "lvextend -r -L +10G /dev/mapper/RootVG-varVol"
     ]
 
   }
