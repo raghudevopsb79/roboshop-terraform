@@ -60,6 +60,10 @@ resource "aws_route53_record" "record" {
 resource "null_resource" "ansible" {
   depends_on = [aws_route53_record.record]
 
+  triggers = {
+    ip = aws_instance.main.private_ip
+  }
+
   provisioner "remote-exec" {
     connection {
       host     = aws_instance.main.private_ip
