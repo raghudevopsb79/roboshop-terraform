@@ -28,7 +28,7 @@ module "db" {
 }
 
 module "app" {
-  source     = "./modules/ec2"
+  source     = "./modules/docker"
   for_each   = var.app_servers
   depends_on = [module.db]
 
@@ -46,7 +46,7 @@ module "app" {
 }
 
 module "web" {
-  source     = "./modules/ec2"
+  source     = "./modules/docker"
   for_each   = var.web_servers
   depends_on = [module.app]
 
