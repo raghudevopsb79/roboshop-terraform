@@ -39,6 +39,11 @@ resource "aws_instance" "main" {
   vpc_security_group_ids = [aws_security_group.main.id]
   subnet_id              = var.subnet_ids[0]
 
+  root_block_device {
+    volume_size = "30"
+    volume_type = "gp3"
+  }
+
   tags = {
     Name = "${var.name}-${var.env}"
   }
