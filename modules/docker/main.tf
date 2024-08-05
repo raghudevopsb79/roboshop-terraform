@@ -73,11 +73,9 @@ resource "null_resource" "ansible" {
 
     inline = [
       "sudo set-prompt -skip-apply ${var.name}-${var.env}",
-      "sudo dnf install docker -y",
-      "sudo growpart /dev/nvme0n1 4",
-      "sudo lvextend -r -L +10G /dev/mapper/RootVG-varVol"
+      "sudo pip3.11 install ansible hvac",
+      "ansible-pull -i localhost, -U https://github.com/raghudevopsb79/roboshop-ansible -e env=${var.env} -e service_name=${var.name} -e  component=docker -e vault_token=${var.vault_token} main.yml"
     ]
-
   }
-
 }
+
