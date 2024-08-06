@@ -36,6 +36,7 @@ module "eks" {
   eks_version = each.value["eks_version"]
   name        = each.key
   node_groups = each.value["node_groups"]
+  add_ons     = each.value["add_ons"]
 
   subnet_ids = module.network["main"].subnets[each.value["subnet_ref"]].subnets
 }

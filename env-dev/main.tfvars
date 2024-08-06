@@ -99,6 +99,17 @@ eks = {
         instance_types = ["t3.medium"]
       }
     }
+    add_ons = {
+      kube-proxy = {
+        addon_version               = null
+        resolve_conflicts_on_update = "OVERWRITE"
+      }
+
+      vpc-cni = {
+        addon_version               = null
+        resolve_conflicts_on_update = "OVERWRITE"
+      }
+    }
   }
 
 }

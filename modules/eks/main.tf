@@ -24,3 +24,11 @@ resource "aws_eks_node_group" "main" {
   }
 }
 
+resource "aws_eks_addon" "add_ons" {
+  for_each                    = var.add_ons
+  cluster_name                = aws_eks_cluster.main.name
+  addon_name                  = each.key
+  addon_version               = each.value["addon_version"]
+  resolve_conflicts_on_update = each.value["resolve_conflicts_on_update"]
+}
+
