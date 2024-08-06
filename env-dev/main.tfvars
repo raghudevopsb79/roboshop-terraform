@@ -89,8 +89,8 @@ db_servers = {
 eks = {
 
   main = {
-    subnet_ref = "app"
-    version    = "1.30"
+    subnet_ref  = "app"
+    eks_version = "1.30"
   }
 
 }

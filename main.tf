@@ -33,8 +33,8 @@ module "eks" {
 
   env = var.env
 
-  version = each.value["version"]
-  name    = each.key
+  eks_version = each.value["eks_version"]
+  name        = each.key
 
   subnet_ids = module.network["main"].subnets[each.value["subnet_ref"]].subnets
 }

@@ -1,5 +1,5 @@
 variable "subnet_ids" {}
 variable "env" {}
 variable "name" {}
-
+variable "eks_version" {}
 
