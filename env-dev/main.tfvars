@@ -91,6 +91,12 @@ eks = {
   main = {
     subnet_ref  = "app"
     eks_version = "1.30"
+    node_groups = {
+      first = {
+        min_nodes = 1
+        max_nodes = 5
+      }
+    }
   }
 
 }
