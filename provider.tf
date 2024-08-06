@@ -7,3 +7,11 @@ provider "vault" {
 terraform {
   backend "s3" {}
 }
+
+
+provider "helm" {
+  kubernetes {
+    config_path = "~/.kube/config"
+  }
+}
+
