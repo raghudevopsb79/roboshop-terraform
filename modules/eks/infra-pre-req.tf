@@ -11,15 +11,17 @@ EOF
 }
 
 ## Nginx Ingress
-resource "null_resource" "nginx-ingress" {
+resource "helm_release" "nginx-ingress" {
   depends_on = [
     null_resource.kube-config
   ]
 
-  provisioner "local-exec" {
-    command =<<EOF
-helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace kube-system
-EOF
-  }
+  name       = "ingress-nginx"
+  repository = "https://kubernetes.github.io/ingress-nginx"
+  chart      = "ingress-nginx"
+
+  values = [
+    file("${path.module}/conf/nginx-ingress.yaml")
+  ]
 }
 
