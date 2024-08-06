@@ -92,9 +92,11 @@ eks = {
     subnet_ref  = "app"
     eks_version = "1.30"
     node_groups = {
-      first = {
-        min_nodes = 1
-        max_nodes = 5
+      t3_med_on_dem = {
+        min_nodes      = 1
+        max_nodes      = 5
+        capacity_type  = "ON_DEMAND"
+        instance_types = ["t3.medium"]
       }
     }
   }
