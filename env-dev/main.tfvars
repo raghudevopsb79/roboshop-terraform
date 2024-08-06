@@ -86,79 +86,11 @@ db_servers = {
 
 }
 
-app_servers = {
+eks = {
 
-  catalogue = {
-    instance_type = "t3.small"
-    ports = {
-      catalogue-app = {
-        port = 8080
-        cidr = ["10.0.2.0/24", "10.0.3.0/24", "10.0.4.0/24", "10.0.5.0/24"]
-      }
-    }
-  }
-
-  user = {
-    instance_type = "t3.small"
-    ports = {
-      user-app = {
-        port = 8080
-        cidr = ["10.0.2.0/24", "10.0.3.0/24", "10.0.4.0/24", "10.0.5.0/24"]
-      }
-    }
-  }
-
-  cart = {
-    instance_type = "t3.small"
-    ports = {
-      cart-app = {
-        port = 8080
-        cidr = ["10.0.2.0/24", "10.0.3.0/24", "10.0.4.0/24", "10.0.5.0/24"]
-      }
-    }
-  }
-
-  shipping = {
-    instance_type = "t3.small"
-    ports = {
-      shipping-app = {
-        port = 8080
-        cidr = ["10.0.2.0/24", "10.0.3.0/24", "10.0.4.0/24", "10.0.5.0/24"]
-      }
-    }
-  }
-
-  payment = {
-    instance_type = "t3.small"
-    ports = {
-      payment-app = {
-        port = 8080
-        cidr = ["10.0.2.0/24", "10.0.3.0/24", "10.0.4.0/24", "10.0.5.0/24"]
-      }
-    }
-  }
-
-}
-
-web_servers = {
-
-  frontend = {
-    instance_type = "t3.small"
-    ports = {
-      frontend-app = {
-        port = 80
-        cidr = ["10.0.0.0/24", "10.0.1.0/24"]
-      }
-    }
-  }
-
-}
-
-load_balancers = {
-
-  frontend = {
-    internal           = false
-    load_balancer_type = "application"
+  main = {
+    subnet_ref = "app"
+    version    = "1.30"
   }
 
 }

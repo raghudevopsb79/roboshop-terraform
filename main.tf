@@ -27,54 +27,14 @@ module "db" {
   subnet_ids = module.network["main"].subnets["db"].subnets
 }
 
-module "app" {
-  source     = "./modules/docker"
-  for_each   = var.app_servers
-  depends_on = [module.db]
-
-  env           = var.env
-  bastion_nodes = var.bastion_nodes
-  zone_id       = var.zone_id
-  vault_token   = var.vault_token
-
-  name          = each.key
-  ports         = each.value["ports"]
-  instance_type = each.value["instance_type"]
-
-  vpc_id     = module.network["main"].vpc_id
-  subnet_ids = module.network["main"].subnets["app"].subnets
-}
-
-module "web" {
-  source     = "./modules/docker"
-  for_each   = var.web_servers
-  depends_on = [module.app]
-
-  env           = var.env
-  bastion_nodes = var.bastion_nodes
-  zone_id       = var.zone_id
-  vault_token   = var.vault_token
-
-  name          = each.key
-  ports         = each.value["ports"]
-  instance_type = each.value["instance_type"]
-
-  vpc_id     = module.network["main"].vpc_id
-  subnet_ids = module.network["main"].subnets["web"].subnets
-}
-
-module "load-balancers" {
-  source   = "./modules/load-balancers"
-  for_each = var.load_balancers
-
-  name               = each.key
-  load_balancer_type = each.value["load_balancer_type"]
-  internal           = each.value["internal"]
-
-  vpc_id      = module.network["main"].vpc_id
-  subnet_ids  = module.network["main"].subnets["public"].subnets
-  instance_id = module.web["frontend"].instance_id
+module "eks" {
+  source   = "./modules/eks"
+  for_each = var.eks
 
   env = var.env
-}
 
+  version = each.value["version"]
+  name    = each.key
+
+  subnet_ids = module.network["main"].subnets[each.value["subnet_ref"]].subnets
+}
