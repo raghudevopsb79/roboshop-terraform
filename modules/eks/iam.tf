@@ -52,3 +52,30 @@ resource "aws_iam_role_policy_attachment" "node-AmazonEC2ContainerRegistryReadOn
   role       = aws_iam_role.node-role.name
 }
 
+
+
+## External DNS
+
+# resource "aws_iam_role" "external-dns-role" {
+#   name = "${var.name}-${var.env}-eks-external-dns-role"
+#
+#   assume_role_policy = jsonencode({
+#     "Version": "2012-10-17",
+#     "Statement": [
+#       {
+#         "Effect": "Allow",
+#         "Principal": {
+#           "Federated": "arn:aws:iam::$ACCOUNT_ID:oidc-provider/$OIDC_PROVIDER"
+#         },
+#         "Action": "sts:AssumeRoleWithWebIdentity",
+#         "Condition": {
+#           "StringEquals": {
+#             "$OIDC_PROVIDER:sub": "system:serviceaccount:${EXTERNALDNS_NS:-"default"}:external-dns",
+#             "$OIDC_PROVIDER:aud": "sts.amazonaws.com"
+#           }
+#         }
+#       }
+#     ]
+#   })
+# }
+
