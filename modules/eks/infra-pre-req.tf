@@ -76,7 +76,7 @@ resource "kubernetes_manifest" "grafana-ingress" {
       "ingressClassName": "nginx"
       "rules" : [
         {
-          "host" : "grafana-${var.name}-${var.env}.rdevopsb72.online"
+          "host" : "grafana-${var.name}-${var.env}.rdevopsb79.online"
           "http" : {
             "paths" : [
               {
