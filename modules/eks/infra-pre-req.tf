@@ -38,3 +38,20 @@ resource "helm_release" "external-dns" {
   chart      = "external-dns"
   namespace  = "kube-system"
 }
+
+resource "kubernetes_annotations" "external-dns-sa-annotate" {
+
+  depends_on = [
+    helm_release.external-dns
+  ]
+
+  api_version = "v1"
+  kind        = "ServiceAccount"
+  metadata {
+    name = "external-dns"
+  }
+  annotations = {
+    "eks.amazonaws.com/role-arn" = aws_iam_role.external-dns-role.arn
+  }
+}
+
