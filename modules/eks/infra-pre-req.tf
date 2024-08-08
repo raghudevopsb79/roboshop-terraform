@@ -47,3 +47,16 @@ resource "aws_eks_pod_identity_association" "external-dns" {
   role_arn        = aws_iam_role.external-dns-role.arn
 }
 
+
+# Prometheus Stack
+resource "helm_release" "prometheus-stack" {
+  depends_on = [
+    null_resource.kube-config
+  ]
+
+  name       = "prom-stack"
+  repository = "https://prometheus-community.github.io/helm-charts"
+  chart      = "kube-prometheus-stack"
+  namespace  = "kube-system"
+}
+
