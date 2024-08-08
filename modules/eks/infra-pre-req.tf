@@ -84,7 +84,7 @@ resource "kubernetes_manifest" "grafana-ingress" {
                 "path" : "/"
                 "backend" : {
                   "service" : {
-                    "name": "ingress-nginx-controller"
+                    "name": "prom-stack-grafana"
                     "port" : {
                       number: 80
                     }
