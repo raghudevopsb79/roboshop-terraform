@@ -60,3 +60,42 @@ resource "helm_release" "prometheus-stack" {
   namespace  = "kube-system"
 }
 
+resource "kubernetes_manifest" "grafana-ingress" {
+  depends_on = [
+    null_resource.kube-config,
+    helm_release.prometheus-stack
+  ]
+  manifest = {
+    "apiVersion" = "networking.k8s.io/v1"
+    "kind"       = "Ingress"
+    "metadata" = {
+      "name"      = "grafana"
+      "namespace" = "kube-system"
+    }
+    "spec" = {
+      "ingressClassName": "nginx"
+      "rules" : [
+        {
+          "host" : "grafana-${var.name}-${var.env}.rdevopsb72.online"
+          "http" : {
+            "paths" : [
+              {
+                "pathType" : "Prefix"
+                "path" : "/"
+                "backend" : {
+                  "service" : {
+                    "name": "ingress-nginx-controller"
+                    "port" : {
+                      number: 80
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+
