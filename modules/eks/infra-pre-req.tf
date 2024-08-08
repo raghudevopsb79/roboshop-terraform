@@ -49,6 +49,7 @@ resource "kubernetes_annotations" "external-dns-sa-annotate" {
   kind        = "ServiceAccount"
   metadata {
     name = "external-dns"
+    namespace = "kube-system"
   }
   annotations = {
     "eks.amazonaws.com/role-arn" = aws_iam_role.external-dns-role.arn
