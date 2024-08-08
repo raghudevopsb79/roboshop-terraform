@@ -99,7 +99,7 @@ resource "kubernetes_manifest" "grafana-ingress" {
   }
 }
 
-resource "kubernetes_manifest" "grafana-ingress" {
+resource "kubernetes_manifest" "prometheus-ingress" {
   depends_on = [
     null_resource.kube-config,
     helm_release.prometheus-stack
