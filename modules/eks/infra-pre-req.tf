@@ -99,3 +99,42 @@ resource "kubernetes_manifest" "grafana-ingress" {
   }
 }
 
+resource "kubernetes_manifest" "grafana-ingress" {
+  depends_on = [
+    null_resource.kube-config,
+    helm_release.prometheus-stack
+  ]
+  manifest = {
+    "apiVersion" = "networking.k8s.io/v1"
+    "kind"       = "Ingress"
+    "metadata" = {
+      "name"      = "prometheus"
+      "namespace" = "kube-system"
+    }
+    "spec" = {
+      "ingressClassName": "nginx"
+      "rules" : [
+        {
+          "host" : "proemtheus-${var.name}-${var.env}.rdevopsb79.online"
+          "http" : {
+            "paths" : [
+              {
+                "pathType" : "Prefix"
+                "path" : "/"
+                "backend" : {
+                  "service" : {
+                    "name": "prom-stack-kube-prometheus-prometheus"
+                    "port" : {
+                      number: 9090
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+
