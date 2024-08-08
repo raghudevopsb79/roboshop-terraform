@@ -109,6 +109,11 @@ eks = {
         addon_version               = null
         resolve_conflicts_on_update = "OVERWRITE"
       }
+
+      eks-pod-identity-agent = {
+        addon_version               = null
+        resolve_conflicts_on_update = "OVERWRITE"
+      }
     }
   }
 
