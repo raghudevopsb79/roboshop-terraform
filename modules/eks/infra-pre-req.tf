@@ -30,7 +30,8 @@ resource "helm_release" "nginx-ingress" {
 ## External DNS
 resource "helm_release" "external-dns" {
   depends_on = [
-    null_resource.kube-config
+    null_resource.kube-config,
+    aws_eks_pod_identity_association.external-dns
   ]
 
   name       = "external-dns"
@@ -39,20 +40,10 @@ resource "helm_release" "external-dns" {
   namespace  = "kube-system"
 }
 
-resource "kubernetes_annotations" "external-dns-sa-annotate" {
-
-  depends_on = [
-    helm_release.external-dns
-  ]
-
-  api_version = "v1"
-  kind        = "ServiceAccount"
-  metadata {
-    name = "external-dns"
-    namespace = "kube-system"
-  }
-  annotations = {
-    "eks.amazonaws.com/role-arn" = aws_iam_role.external-dns-role.arn
-  }
+resource "aws_eks_pod_identity_association" "external-dns" {
+  cluster_name    = aws_eks_cluster.main.name
+  namespace       = "kube-system"
+  service_account = "external-dns"
+  role_arn        = aws_iam_role.external-dns-role.arn
 }
 
