@@ -109,7 +109,7 @@ resource "aws_iam_role" "external-dns-role" {
 
 
 ## Node Autoscaler
-resource "aws_iam_role" "external-dns-role" {
+resource "aws_iam_role" "node-autoscaler-role" {
   name = "${var.name}-${var.env}-eks-node-autoscaler-role"
 
   assume_role_policy = jsonencode({
