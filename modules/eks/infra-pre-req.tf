@@ -70,7 +70,7 @@ resource "helm_release" "prometheus-stack" {
 
   set_list {
     name  = "prometheus.ingress.hosts"
-    value = ["grafana-${var.name}-${var.env}.rdevopsb79.online"]
+    value = ["prometheus-${var.name}-${var.env}.rdevopsb79.online"]
   }
 
 }
