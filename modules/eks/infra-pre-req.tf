@@ -105,3 +105,10 @@ resource "helm_release" "node-autoscaler" {
   }
 
 }
+
+resource "aws_eks_pod_identity_association" "node-autoscaler" {
+  cluster_name    = aws_eks_cluster.main.name
+  namespace       = "kube-system"
+  service_account = "node-autoscaler-aws-cluster-autoscaler"
+  role_arn        = aws_iam_role.node-autoscaler-dns-role.arn
+}
