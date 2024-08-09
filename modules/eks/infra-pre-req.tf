@@ -75,7 +75,7 @@ resource "helm_release" "prometheus-stack" {
 
 }
 
-## Horizontal Pod Autoscalar - Metric Server
+## Horizontal Pod Auto scaler - Metric Server
 
 resource "null_resource" "metric-server" {
   depends_on = [
@@ -88,4 +88,20 @@ EOF
   }
 }
 
+# Cluster Auto scaler
+resource "helm_release" "node-autoscaler" {
+  depends_on = [
+    null_resource.kube-config
+  ]
 
+  name       = "node-autoscaler"
+  repository = "https://kubernetes.github.io/autoscaler"
+  chart      = "cluster-autoscaler"
+  namespace  = "kube-system"
+
+  set {
+    name  = "autoDiscovery.clusterName"
+    value = aws_eks_cluster.main.name
+  }
+
+}
