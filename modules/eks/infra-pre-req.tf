@@ -58,7 +58,23 @@ resource "helm_release" "prometheus-stack" {
   repository = "https://prometheus-community.github.io/helm-charts"
   chart      = "kube-prometheus-stack"
   namespace  = "kube-system"
+
+  values = [
+    file("${path.module}/conf/prometheus-stack.yaml")
+  ]
+
+  set_list {
+    name  = "grafana.ingress.hosts"
+    value = ["grafana-${var.name}-${var.env}.rdevopsb79.online"]
+  }
+
+  set_list {
+    name  = "prometheus.ingress.hosts"
+    value = ["grafana-${var.name}-${var.env}.rdevopsb79.online"]
+  }
+
 }
+
 
 
 

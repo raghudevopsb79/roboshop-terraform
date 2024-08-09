@@ -1,0 +1,10 @@
+grafana:
+  ingress:
+    enabled: true
+
+prometheus:
+  ingress:
+    enabled: true
+
+
+
