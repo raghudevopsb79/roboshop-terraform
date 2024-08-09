@@ -75,7 +75,17 @@ resource "helm_release" "prometheus-stack" {
 
 }
 
+## Horizontal Pod Autoscalar - Metric Server
 
-
+resource "null_resource" "metric-server" {
+  depends_on = [
+    null_resource.kube-config
+  ]
+  provisioner "local-exec" {
+    command =<<EOF
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+EOF
+  }
+}
 
 
