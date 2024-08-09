@@ -1,10 +1,12 @@
 grafana:
   ingress:
     enabled: true
+    ingressClassName: nginx
 
 prometheus:
   ingress:
     enabled: true
+    ingressClassName: nginx
 
 
 
