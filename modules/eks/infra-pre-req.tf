@@ -51,7 +51,8 @@ resource "aws_eks_pod_identity_association" "external-dns" {
 # Prometheus Stack
 resource "helm_release" "prometheus-stack" {
   depends_on = [
-    null_resource.kube-config
+    null_resource.kube-config,
+    helm_release.nginx-ingress
   ]
 
   name       = "prom-stack"
