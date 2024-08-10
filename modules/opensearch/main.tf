@@ -14,7 +14,7 @@ resource "aws_opensearch_domain" "main" {
 
   advanced_security_options {
     enabled                        = true
-    anonymous_auth_enabled         = true
+    anonymous_auth_enabled         = false
     internal_user_database_enabled = true
     master_user_options {
       master_user_name     = data.vault_generic_secret.opensearch.data["MASTER_USERNAME"]
