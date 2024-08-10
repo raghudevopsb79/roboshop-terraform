@@ -22,6 +22,10 @@ resource "aws_opensearch_domain" "main" {
     }
   }
 
+  domain_endpoint_options {
+    enforce_https                   = true
+  }
+
   encrypt_at_rest {
     enabled    = true
   }
