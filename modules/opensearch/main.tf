@@ -31,6 +31,22 @@ resource "aws_opensearch_domain" "main" {
     enabled    = true
   }
 
+  access_policies    = jsonencode(
+    {
+      Statement = [
+        {
+          Action    = "es:*"
+          Effect    = "Allow"
+          Principal = {
+            AWS = "*"
+          }
+          Resource  = "arn:aws:es:us-east-1:${data.aws_caller_identity.current.account_id}:domain/${var.name}-${var.env}/*"
+        },
+      ]
+      Version   = "2012-10-17"
+    }
+  )
+
   node_to_node_encryption {
     enabled = true
   }
