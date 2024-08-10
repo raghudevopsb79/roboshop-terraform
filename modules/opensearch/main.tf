@@ -13,7 +13,7 @@ resource "aws_opensearch_domain" "main" {
   }
 
   advanced_security_options {
-    enabled                        = false
+    enabled                        = true
     anonymous_auth_enabled         = true
     internal_user_database_enabled = true
     master_user_options {
