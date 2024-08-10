@@ -4,7 +4,7 @@ resource "null_resource" "kube-config" {
     aws_eks_node_group.main
   ]
   provisioner "local-exec" {
-    command =<<EOF
+    command = <<EOF
 aws eks update-kubeconfig --name ${aws_eks_cluster.main.name}
 EOF
   }
@@ -82,7 +82,7 @@ resource "null_resource" "metric-server" {
     null_resource.kube-config
   ]
   provisioner "local-exec" {
-    command =<<EOF
+    command = <<EOF
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 EOF
   }

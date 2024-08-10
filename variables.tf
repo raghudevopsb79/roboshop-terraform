@@ -5,4 +5,5 @@ variable "db_servers" {}
 variable "bastion_nodes" {}
 variable "zone_id" {}
 variable "eks" {}
+variable "opensearch" {}
 

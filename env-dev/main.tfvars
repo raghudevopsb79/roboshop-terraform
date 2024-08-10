@@ -118,3 +118,10 @@ eks = {
   }
 
 }
+
+opensearch = {
+  main = {
+    instance_type  = "r6g.large.search"
+    engine_version = "OpenSearch_2.13"
+  }
+}

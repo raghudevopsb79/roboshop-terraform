@@ -40,3 +40,15 @@ module "eks" {
 
   subnet_ids = module.network["main"].subnets[each.value["subnet_ref"]].subnets
 }
+
+module "opensearch" {
+  source   = "./modules/opensearch"
+  for_each = var.opensearch
+
+  env = var.env
+
+  engine_version = each.value["engine_version"]
+  instance_type  = each.value["instance_type"]
+  name           = each.key
+}
+
