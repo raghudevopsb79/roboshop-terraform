@@ -22,6 +22,10 @@ resource "aws_opensearch_domain" "main" {
     }
   }
 
+  node_to_node_encryption {
+    enabled = true
+  }
+
   tags = {
     Domain = "${var.name}-${var.env}"
   }
