@@ -95,7 +95,7 @@ fileConfigs:
   04_outputs.conf: |-
     <label @OUTPUT>
       <match **>
-        @type elasticsearch
+        @type opensearch
         host "elasticsearch-master"
         port 9200
         path ""
