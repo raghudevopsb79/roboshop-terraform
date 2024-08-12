@@ -80,8 +80,8 @@ fileConfigs:
           type counter
           desc The total number of incoming records
           <labels>
-            tag $${tag}{tag}
-            hostname $${hostname}{hostname}
+            tag $${tag}
+            hostname $${hostname}
           </labels>
         </metric>
       </filter>
