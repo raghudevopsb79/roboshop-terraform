@@ -63,6 +63,9 @@ fileConfigs:
         skip_container_metadata false
         skip_namespace_metadata true
         skip_master_url true
+        <record>
+            custom_index_name ${record["kubernetes"]["container_name"]}
+          </record>
       </filter>
 
       <match **>
@@ -101,9 +104,7 @@ fileConfigs:
         path ""
         user ${DOMAIN_USER}
         password ${DOMAIN_PASS}
-        logstash_prefix ${ENV}-$${$.kubernetes.namespace_name}-$${$.kubernetes.container_name}
-        <buffer tag, $.kubernetes.namespace_name, $.kubernetes.container_name>
-          @type memory
-        </buffer>
+        logstash_format false
+        index_name $${record["custom_index_name"]}-logs
       </match>
     </label>
