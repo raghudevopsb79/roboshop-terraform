@@ -48,7 +48,7 @@ fileConfigs:
         path ""
         user ${DOMAIN_USER}
         password ${DOMAIN_PASS}
-        index_name fluentd.${tag}.%Y%m%d
+        index_name $${tag}.%Y%m%d
       </match>
     </label>
 
