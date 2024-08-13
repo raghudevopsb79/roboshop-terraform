@@ -66,8 +66,8 @@ fileConfigs:
         @id filter_record_transformer
         <record>
           # Add Kubernetes metadata as fields for further use
-          kubernetes_namespace ${record["kubernetes"]["namespace_name"] || 'unknown'}
-          kubernetes_container ${record["kubernetes"]["container_name"] || 'unknown'}
+          kubernetes_namespace $${record["kubernetes"]["namespace_name"] || 'unknown'}
+          kubernetes_container $${record["kubernetes"]["container_name"] || 'unknown'}
         </record>
       </filter>
 
