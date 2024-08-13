@@ -102,6 +102,6 @@ fileConfigs:
         user ${DOMAIN_USER}
         password ${DOMAIN_PASS}
         logstash_format  true
-        logstash_prefix ${ENV}-$${record['kubernetes']['namespace_name']}-$${record['kubernetes']['container_name']}-%Y%m%d
+        logstash_prefix ${ENV}.$${record['kubernetes']['namespace_name']}.$${record['kubernetes']['container_name']}.%Y%m%d
       </match>
     </label>
