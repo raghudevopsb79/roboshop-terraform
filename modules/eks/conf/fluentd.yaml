@@ -20,6 +20,7 @@ fileConfigs:
     </source>
 
   02_filters.conf: |-
+    <label @KUBERNETES>
       <match kubernetes.**>
         @type kubernetes_metadata
           <store>
@@ -27,6 +28,7 @@ fileConfigs:
             @label @OUTPUT
           </store>
       </match>
+    </label>
 
   03_dispatch.conf: |-
     <label @DISPATCH>
