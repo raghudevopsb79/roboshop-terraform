@@ -101,8 +101,8 @@ fileConfigs:
         path ""
         user ${DOMAIN_USER}
         password ${DOMAIN_PASS}
-        logstash_prefix Fluentd-$${$.kubernetes.namespace_name}
-        <buffer tag, $.kubernetes.namespace_name>
+        logstash_prefix $${$.kubernetes.namespace_name}-$${$.kubernetes.container_name}
+        <buffer tag, $.kubernetes.namespace_name, $.kubernetes.container_name>
           @type memory
         </buffer>
       </match>
