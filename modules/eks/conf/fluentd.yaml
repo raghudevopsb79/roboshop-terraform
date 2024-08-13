@@ -128,7 +128,7 @@ fileConfigs:
         </buffer>
 
         <index>
-          name ${ENV}-$${record["kubernetes_namespace"]}-$${record["kubernetes_container"]}
+          name ${ENV}-$${record["kubernetes"]["namespace_name"]}
         </index>
       </match>
     </label>
