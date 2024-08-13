@@ -68,6 +68,16 @@ fileConfigs:
           </record>
       </filter>
 
+      <filter kubernetes.**>
+        @type record_transformer
+        @id filter_record_transformer
+        <record>
+          # Add Kubernetes metadata as fields for further use
+          kubernetes_namespace $${record["kubernetes"]["namespace_name"]}
+          kubernetes_container $${record["kubernetes"]["container_name"]}
+        </record>
+      </filter>
+
       <match **>
         @type relabel
         @label @DISPATCH
@@ -104,7 +114,12 @@ fileConfigs:
         path ""
         user ${DOMAIN_USER}
         password ${DOMAIN_PASS}
-        logstash_format false
-        index_name $${record["custom_index_name"]}-logs
+        logstash_format true
+        logstash_prefix ${ENV}
+        include_tag_key true
+        tag_key @log_name
+        <index>
+          name ${ENV}-%{[kubernetes_namespace]}-%{[kubernetes_container]}-%{+YYYY.MM.dd}
+        </index>
       </match>
     </label>
