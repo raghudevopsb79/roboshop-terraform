@@ -20,13 +20,13 @@ fileConfigs:
     </source>
 
   02_filters.conf: |-
-    <label @KUBERNETES>
       <match kubernetes.**>
         @type kubernetes_metadata
-        @id filter_kube_metadata
-        @label @OUTPUT
+          <store>
+            @type relabel
+            @label @OUTPUT
+          </store>
       </match>
-    </label>
 
   03_dispatch.conf: |-
     <label @DISPATCH>
