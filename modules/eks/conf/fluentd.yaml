@@ -53,13 +53,8 @@ fileConfigs:
 
       <filter kubernetes.**>
         @type kubernetes_metadata
-        @id filter_kube_metadata
+        @label @OUTPUT
       </filter>
-
-      <match **>
-        @type relabel
-        @label @DISPATCH
-      </match>
     </label>
 
   03_dispatch.conf: |-
