@@ -112,6 +112,12 @@ fileConfigs:
         logstash_prefix ${ENV}
         include_tag_key true
         tag_key @log_name
+
+        <buffer>
+          @type memory
+          flush_interval 5s
+        </buffer>
+
         <index>
           name ${ENV}-$${record["kubernetes_namespace"]}-$${record["kubernetes_container"]}
         </index>
