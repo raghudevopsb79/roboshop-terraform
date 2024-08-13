@@ -14,5 +14,6 @@ data "template_file" "logstash-input" {
     DOMAIN_USER = data.vault_generic_secret.opensearch.data["MASTER_USERNAME"]
     DOMAIN_PASS = data.vault_generic_secret.opensearch.data["MASTER_PASSWORD"]
     DOMAIN_URL  = var.opensearch_url
+    ENV         = var.env
   }
 }
