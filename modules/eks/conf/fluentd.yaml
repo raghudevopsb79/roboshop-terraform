@@ -101,7 +101,7 @@ fileConfigs:
         path ""
         user ${DOMAIN_USER}
         password ${DOMAIN_PASS}
-        logstash_prefix $${$.kubernetes.namespace_name}-$${$.kubernetes.container_name}
+        logstash_prefix $${ENV}-$${$.kubernetes.namespace_name}-$${$.kubernetes.container_name}
         <buffer tag, $.kubernetes.namespace_name, $.kubernetes.container_name>
           @type memory
         </buffer>
