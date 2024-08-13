@@ -90,15 +90,6 @@ fileConfigs:
 
   04_outputs.conf: |-
     <label @OUTPUT>
-
-    <match kubernetes.**>
-      @type stdout
-      @id output_stdout
-      <format>
-        @type json
-      </format>
-    </match>
-
       <match **>
         @type opensearch
         @id output_opensearch
@@ -113,6 +104,5 @@ fileConfigs:
           @type memory
           flush_interval 5s
         </buffer>
-
       </match>
     </label>
