@@ -102,7 +102,7 @@ fileConfigs:
         user ${DOMAIN_USER}
         password ${DOMAIN_PASS}
         logstash_prefix ${ENV}-$${$.kubernetes.namespace_name}
-        <buffer tag, $.kubernetes.namespace_name, $.kubernetes.container_name>
+        <buffer tag, $.kubernetes.namespace_name>
           @type memory
         </buffer>
       </match>
