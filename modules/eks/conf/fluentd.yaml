@@ -51,24 +51,10 @@ fileConfigs:
         @label @FLUENT_LOG
       </match>
 
-      # <match kubernetes.var.log.containers.**_kube-system_**>
-      #   @type null
-      #   @id ignore_kube_system_logs
-      # </match>
-
       <filter kubernetes.**>
         @type kubernetes_metadata
         @id filter_kube_metadata
       </filter>
-
-      <match kubernetes.**>
-        @type rewrite_tag_filter
-        <rule>
-          key $$['kubernetes']['namespace_name']
-          pattern ^(.+)$
-          tag $$['kubernetes']['namespace_name']
-        </rule>
-      </match>
 
       <match **>
         @type relabel
@@ -95,5 +81,25 @@ fileConfigs:
         password ${DOMAIN_PASS}
         logstash_format true
         logstash_prefix ${ENV}-$${tag}
+      </match>
+
+      <match **>
+        @type opensearch
+        include_tag_key true
+        logstash_format true
+        logstash_prefix kubernetes-$${record['kubernetes']['namespace_name']}-$${record['kubernetes']['namespace_name']}
+        hosts "https://${DOMAIN_URL}"
+        port 443
+        path ""
+        user ${DOMAIN_USER}
+        password ${DOMAIN_PASS}
+        <buffer>
+            flush_thread_count 16
+            flush_interval 5s
+            chunk_limit_size 2M
+            queue_limit_length 32
+            retry_max_interval 30
+            retry_forever true
+        </buffer>
       </match>
     </label>
