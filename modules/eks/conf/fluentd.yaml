@@ -109,6 +109,7 @@ fileConfigs:
     <label @OUTPUT>
       <match **>
         @type opensearch
+        @id output_opensearch
         hosts "https://${DOMAIN_URL}"
         port 443
         path ""
