@@ -101,6 +101,7 @@ fileConfigs:
         path ""
         user ${DOMAIN_USER}
         password ${DOMAIN_PASS}
-        index_name $${tag}.%Y%m%d
+        logstash_format  true
+        logstash_prefix $${record['kubernetes']['namespace_name']}-$${record['kubernetes']['container_name']}-%Y%m%d
       </match>
     </label>
