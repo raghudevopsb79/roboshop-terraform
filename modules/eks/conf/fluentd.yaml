@@ -118,7 +118,7 @@ fileConfigs:
         user ${DOMAIN_USER}
         password ${DOMAIN_PASS}
         logstash_format true
-        logstash_prefix ${ENV}
+        logstash_prefix ${ENV}-$${record["kubernetes"]["namespace_name"]}
         include_tag_key true
         tag_key @log_name
 
@@ -127,8 +127,5 @@ fileConfigs:
           flush_interval 5s
         </buffer>
 
-        <index>
-          name ${ENV}-$${record["kubernetes"]["namespace_name"]}
-        </index>
       </match>
     </label>
