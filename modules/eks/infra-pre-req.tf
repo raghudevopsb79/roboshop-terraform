@@ -115,14 +115,6 @@ resource "aws_eks_pod_identity_association" "node-autoscaler" {
 }
 
 # FluentD Helm Chart
-
-data "template_file" "logstash-input" {
-  template = file("${path.module}/conf/fluentd.yaml")
-  vars = {
-    DOMAIN_USER = "elastic-test"
-  }
-}
-
 resource "helm_release" "fluentd" {
   depends_on = [
     null_resource.kube-config

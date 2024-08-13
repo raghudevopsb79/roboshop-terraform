@@ -96,11 +96,11 @@ fileConfigs:
     <label @OUTPUT>
       <match **>
         @type opensearch
-        host "elasticsearch-master"
-        port 9200
+        host "${DOMAIN_URL}"
+        port 443
         path ""
         user ${DOMAIN_USER}
-        password changeme
+        password ${DOMAIN_PASS}
       </match>
     </label>
 

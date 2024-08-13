@@ -38,7 +38,8 @@ module "eks" {
   node_groups = each.value["node_groups"]
   add_ons     = each.value["add_ons"]
 
-  subnet_ids = module.network["main"].subnets[each.value["subnet_ref"]].subnets
+  subnet_ids     = module.network["main"].subnets[each.value["subnet_ref"]].subnets
+  opensearch_url = module.opensearch["main"].opensearch_url
 }
 
 module "opensearch" {

@@ -23,27 +23,27 @@ resource "aws_opensearch_domain" "main" {
   }
 
   domain_endpoint_options {
-    enforce_https                   = true
-    tls_security_policy             = "Policy-Min-TLS-1-2-2019-07"
+    enforce_https       = true
+    tls_security_policy = "Policy-Min-TLS-1-2-2019-07"
   }
 
   encrypt_at_rest {
-    enabled    = true
+    enabled = true
   }
 
-  access_policies    = jsonencode(
+  access_policies = jsonencode(
     {
       Statement = [
         {
-          Action    = "es:*"
-          Effect    = "Allow"
+          Action = "es:*"
+          Effect = "Allow"
           Principal = {
             AWS = "*"
           }
-          Resource  = "arn:aws:es:us-east-1:${data.aws_caller_identity.current.account_id}:domain/${var.name}-${var.env}/*"
+          Resource = "arn:aws:es:us-east-1:${data.aws_caller_identity.current.account_id}:domain/${var.name}-${var.env}/*"
         },
       ]
-      Version   = "2012-10-17"
+      Version = "2012-10-17"
     }
   )
 
