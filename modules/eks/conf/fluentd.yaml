@@ -120,7 +120,7 @@ fileConfigs:
         include_tag_key true
         tag_key @log_name
         <index>
-          name ${ENV}-%{[kubernetes_namespace]}-%{[kubernetes_container]}-%{+YYYY.MM.dd}
+          name ${ENV}-$${record["kubernetes_namespace"]}-$${record["kubernetes_container"]}
         </index>
       </match>
     </label>
