@@ -71,7 +71,7 @@ fileConfigs:
         @type opensearch
         include_tag_key true
         logstash_format true
-        logstash_prefix kubernetes-$${record['kubernetes']['namespace_name']}-$${record['kubernetes']['namespace_name']}
+        logstash_prefix kubernetes-$${record['kubernetes']['namespace_name']}
         hosts "https://${DOMAIN_URL}"
         port 443
         path ""
