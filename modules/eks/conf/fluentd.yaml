@@ -7,7 +7,7 @@ image:
 ## Fluentd configurations:
 ##
 fileConfigs:
-  01_sources.conf: |-
+  main.conf: |-
     ## logs from podman
     <source>
       @type tail
@@ -17,44 +17,13 @@ fileConfigs:
       pos_file /var/log/fluentd-containers.log.pos
       tag kubernetes.*
       read_from_head true
-      <parse>
-        @type multi_format
-        <pattern>
-          format json
-          time_key time
-          time_type string
-          time_format "%Y-%m-%dT%H:%M:%S.%NZ"
-          keep_time_key false
-        </pattern>
-        <pattern>
-          format regexp
-          expression /^(?<time>.+) (?<stream>stdout|stderr)( (.))? (?<log>.*)$/
-          time_format '%Y-%m-%dT%H:%M:%S.%NZ'
-          keep_time_key false
-        </pattern>
-      </parse>
-      emit_unmatched_lines true
     </source>
 
-    # expose metrics in prometheus format
-    <source>
-      @type prometheus
-      bind 0.0.0.0
-      port 24231
-      metrics_path /metrics
-    </source>
-
-  02_filters.conf: |-
     <label @KUBERNETES>
       <match kubernetes.var.log.containers.fluentd**>
         @type relabel
         @label @FLUENT_LOG
       </match>
-
-      # <match kubernetes.var.log.containers.**_kube-system_**>
-      #   @type null
-      #   @id ignore_kube_system_logs
-      # </match>
 
       <filter kubernetes.**>
         @type kubernetes_metadata
@@ -67,32 +36,10 @@ fileConfigs:
 
       <match **>
         @type relabel
-        @label @DISPATCH
-      </match>
-    </label>
-
-  03_dispatch.conf: |-
-    <label @DISPATCH>
-      <filter **>
-        @type prometheus
-        <metric>
-          name fluentd_input_status_num_records_total
-          type counter
-          desc The total number of incoming records
-          <labels>
-            tag $${tag}
-            hostname $${hostname}
-          </labels>
-        </metric>
-      </filter>
-
-      <match **>
-        @type relabel
         @label @OUTPUT
       </match>
     </label>
 
-  04_outputs.conf: |-
     <label @OUTPUT>
       <match **>
         @type opensearch
@@ -101,6 +48,7 @@ fileConfigs:
         path ""
         user ${DOMAIN_USER}
         password ${DOMAIN_PASS}
+        index_name fluentd.${tag}.%Y%m%d
       </match>
     </label>
 
