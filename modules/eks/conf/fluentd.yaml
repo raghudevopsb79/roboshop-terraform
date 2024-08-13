@@ -59,13 +59,6 @@ fileConfigs:
       <filter kubernetes.**>
         @type kubernetes_metadata
         @id filter_kube_metadata
-        skip_labels false
-        skip_container_metadata false
-        skip_namespace_metadata false
-        skip_master_url true
-        <record>
-            custom_index_name $${record["kubernetes"]["container_name"]}
-          </record>
       </filter>
 
       <filter kubernetes.**>
