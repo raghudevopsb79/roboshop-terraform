@@ -61,12 +61,12 @@ fileConfigs:
         @id filter_kube_metadata
       </filter>
 
-      <match kube.**>
+      <match kubernetes.**>
         @type rewrite_tag_filter
         <rule>
-          key $['kubernetes']['namespace_name']
+          key $$['kubernetes']['namespace_name']
           pattern ^(.+)$
-          tag $1
+          tag $$['kubernetes']['namespace_name']
         </rule>
       </match>
 
