@@ -96,7 +96,7 @@ fileConfigs:
     <label @OUTPUT>
       <match **>
         @type opensearch
-        host "https://${DOMAIN_URL}"
+        hosts "https://${DOMAIN_URL}"
         port 443
         path ""
         user ${DOMAIN_USER}
