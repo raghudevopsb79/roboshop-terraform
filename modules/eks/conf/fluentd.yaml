@@ -61,16 +61,6 @@ fileConfigs:
         @id filter_kube_metadata
       </filter>
 
-      <filter kubernetes.**>
-        @type record_transformer
-        @id filter_record_transformer
-        <record>
-          # Add Kubernetes metadata as fields for further use
-          kubernetes_namespace $${record["kubernetes"]["namespace_name"] || 'unknown'}
-          kubernetes_container $${record["kubernetes"]["container_name"] || 'unknown'}
-        </record>
-      </filter>
-
       <match **>
         @type relabel
         @label @DISPATCH
@@ -119,10 +109,7 @@ fileConfigs:
         password ${DOMAIN_PASS}
         logstash_format true
         logstash_prefix ${ENV}-$${record["kubernetes"]["namespace_name"]}
-        include_tag_key true
-        tag_key @log_name
-
-        <buffer>
+        <buffer tag, $.kubernetes.namespace_name>
           @type memory
           flush_interval 5s
         </buffer>
