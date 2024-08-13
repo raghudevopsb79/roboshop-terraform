@@ -64,7 +64,7 @@ fileConfigs:
         skip_namespace_metadata true
         skip_master_url true
         <record>
-            custom_index_name ${record["kubernetes"]["container_name"]}
+            custom_index_name $${record["kubernetes"]["container_name"]}
           </record>
       </filter>
 
