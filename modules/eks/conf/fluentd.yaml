@@ -61,6 +61,15 @@ fileConfigs:
         @id filter_kube_metadata
       </filter>
 
+      <match kube.**>
+        @type rewrite_tag_filter
+        <rule>
+          key $['kubernetes']['namespace_name']
+          pattern ^(.+)$
+          tag $1
+        </rule>
+      </match>
+
       <match **>
         @type relabel
         @label @DISPATCH
@@ -69,19 +78,6 @@ fileConfigs:
 
   03_dispatch.conf: |-
     <label @DISPATCH>
-      <filter **>
-        @type prometheus
-        <metric>
-          name fluentd_input_status_num_records_total
-          type counter
-          desc The total number of incoming records
-          <labels>
-            tag $${tag}
-            hostname $${hostname}
-          </labels>
-        </metric>
-      </filter>
-
       <match **>
         @type relabel
         @label @OUTPUT
@@ -92,17 +88,12 @@ fileConfigs:
     <label @OUTPUT>
       <match **>
         @type opensearch
-        @id output_opensearch
         hosts "https://${DOMAIN_URL}"
         port 443
         path ""
         user ${DOMAIN_USER}
         password ${DOMAIN_PASS}
         logstash_format true
-        logstash_prefix ${ENV}-$${record["kubernetes"]["namespace_name"]}
-        <buffer tag, $.kubernetes.namespace_name>
-          @type memory
-          flush_interval 5s
-        </buffer>
+        logstash_prefix ${ENV}-$${tag}
       </match>
     </label>
