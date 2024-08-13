@@ -21,11 +21,11 @@ fileConfigs:
 
   02_filters.conf: |-
     <label @KUBERNETES>
-      <filter kubernetes.**>
+      <match kubernetes.**>
         @type kubernetes_metadata
         @id filter_kube_metadata
         @label @OUTPUT
-      </filter>
+      </match>
     </label>
 
   03_dispatch.conf: |-
