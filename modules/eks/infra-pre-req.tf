@@ -163,3 +163,17 @@ resource "helm_release" "argocd" {
   ]
 
 }
+
+# ISTIO Helm Chart
+resource "helm_release" "istio" {
+  depends_on = [
+    null_resource.kube-config
+  ]
+
+  name       = "istio-base"
+  repository = "https://istio-release.storage.googleapis.com/charts"
+  chart      = "base"
+  namespace  = "kube-system"
+
+}
+
