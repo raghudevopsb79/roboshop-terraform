@@ -22,6 +22,13 @@ resource "aws_eks_node_group" "main" {
     max_size     = each.value["max_nodes"]
     min_size     = each.value["min_nodes"]
   }
+
+  lifecycle {
+    ignore_changes = [
+      scaling_config["desired_size"]
+    ]
+  }
+
 }
 
 resource "aws_eks_addon" "add_ons" {
