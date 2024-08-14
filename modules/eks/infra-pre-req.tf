@@ -170,10 +170,11 @@ resource "helm_release" "istio" {
     null_resource.kube-config
   ]
 
-  name       = "istio-base"
-  repository = "https://istio-release.storage.googleapis.com/charts"
-  chart      = "base"
-  namespace  = "kube-system"
+  name             = "istio-base"
+  repository       = "https://istio-release.storage.googleapis.com/charts"
+  chart            = "base"
+  namespace        = "istio-system"
+  create_namespace = true
 
 }
 
