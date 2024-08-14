@@ -58,7 +58,7 @@ fileConfigs:
             @type grok
             grok_failure_key grokfailure
             <grok>
-              pattern %%{WORD}=%%{TIMESTAMP_ISO8601}%%{SPACE}%{WORD}=%%{WORD}.%%{WORD}:%%{INT}%%{SPACE}%{WORD}=%%{WORD:debug_level}%%{GREEDYDATA:msg}
+              pattern %%{WORD}=%%{TIMESTAMP_ISO8601}%%{SPACE}%{WORD}=%%{WORD}.%%{WORD}:%%{INT}%%{SPACE}%%{WORD}=%%{WORD:debug_level}%%{GREEDYDATA:msg}
             </grok>
           </parse>
         </filter>
