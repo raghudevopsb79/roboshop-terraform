@@ -18,20 +18,13 @@ fileConfigs:
       tag kubernetes.*
       read_from_head true
       <parse>
-        @type multi_format
-        <pattern>
-          format json
-          time_key time
-          time_type string
-          time_format "%Y-%m-%dT%H:%M:%S.%NZ"
-          keep_time_key false
-        </pattern>
-        <pattern>
-          format regexp
-          expression /^(?<time>.+) (?<stream>stdout|stderr)( (.))? (?<log>.*)$/
-          time_format '%Y-%m-%dT%H:%M:%S.%NZ'
-          keep_time_key false
-        </pattern>
+        @type grok
+        grok_name_key grok_name
+        grok_failure_key grokfailure
+        <grok>
+          name alertmanager
+          pattern %%{WORD}=%%{TIMESTAMP_ISO8601}%%{SPACE}%%{WORD}=%%{WORD}.%%{WORD}:%%{INT}%%{SPACE}%%{WORD}=%%{WORD:debug_level}%%{GREEDYDATA:msg}
+        </grok>
       </parse>
       emit_unmatched_lines true
     </source>
@@ -49,19 +42,6 @@ fileConfigs:
       <match kubernetes.var.log.containers.fluentd**>
         @type relabel
         @label @FLUENT_LOG
-      </match>
-
-      <match kubernetes.var.log.containers.alertmanager**>
-        <filter>
-          @type parser
-          <parse>
-            @type grok
-            grok_failure_key grokfailure
-            <grok>
-              pattern %%{WORD}=%%{TIMESTAMP_ISO8601}%%{SPACE}%%{WORD}=%%{WORD}.%%{WORD}:%%{INT}%%{SPACE}%%{WORD}=%%{WORD:debug_level}%%{GREEDYDATA:msg}
-            </grok>
-          </parse>
-        </filter>
       </match>
 
       <filter kubernetes.**>
