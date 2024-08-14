@@ -158,8 +158,8 @@ resource "helm_release" "argocd" {
     value = "nginx"
   }
 
-  set {
-    name  = "configs.params.server.insecure"
-    value = true
-  }
+  values = [
+    file("${path.module}/conf/argocd.yaml")
+  ]
+
 }
