@@ -130,3 +130,31 @@ resource "helm_release" "fluentd" {
   ]
 }
 
+
+# Argocd Helm Chart
+resource "helm_release" "argocd" {
+  depends_on = [
+    null_resource.kube-config
+  ]
+
+  name             = "argocd"
+  repository       = "https://argoproj.github.io/argo-helm"
+  chart            = "argo-cd"
+  namespace        = "argocd"
+  create_namespace = true
+
+  set {
+    name  = "global.domain"
+    value = "argocd-${var.name}-${var.env}.rdevopsb79.online"
+  }
+
+  set {
+    name  = "server.ingress.enabled"
+    value = true
+  }
+
+  set {
+    name  = "server.ingress.ingressClassName"
+    value = "nginx"
+  }
+}
