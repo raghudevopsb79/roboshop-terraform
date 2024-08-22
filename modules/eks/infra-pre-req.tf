@@ -134,7 +134,8 @@ resource "helm_release" "fluentd" {
 # Argocd Helm Chart
 resource "helm_release" "argocd" {
   depends_on = [
-    null_resource.kube-config
+    null_resource.kube-config,
+    helm_release.nginx-ingress
   ]
 
   name             = "argocd"
