@@ -23,7 +23,7 @@ fileConfigs:
         grok_failure_key grokfailure
         <grok>
           name frontend
-          pattern %%{IP}%%{SPACE}-%%{SPACE}-%%{SPACE}\[%%{HTTPDATE}\]%%{SPACE}%%{QUOTEDSTRING}%%{SPACE}%%{NUMBER:http_status:int}%%{GREEDYDATA}
+          pattern %%{IP}%%{SPACE}-%%{SPACE}-%%{SPACE}\[%%{HTTPDATE}\]%%{SPACE}%%{QUOTEDSTRING}%%{SPACE}%%{NUMBER:http_status}%%{GREEDYDATA}
         </grok>
       </parse>
       emit_unmatched_lines true
