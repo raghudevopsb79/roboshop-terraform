@@ -22,8 +22,8 @@ fileConfigs:
         grok_name_key grok_name
         grok_failure_key grokfailure
         <grok>
-          name alertmanager
-          pattern %%{WORD}=%%{TIMESTAMP_ISO8601}%%{SPACE}%%{WORD}=%%{WORD}.%%{WORD}:%%{INT}%%{SPACE}%%{WORD}=%%{WORD:debug_level}%%{GREEDYDATA:msg}
+          name frontend
+          pattern %%{IP}%%{SPACE}-%%{SPACE}-%%{SPACE}\[%%{HTTPDATE}\]%%{SPACE}%%{QUOTEDSTRING}%%{SPACE}%%{NUMBER:http_status:int}%%{GREEDYDATA}
         </grok>
       </parse>
       emit_unmatched_lines true
