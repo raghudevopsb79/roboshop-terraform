@@ -53,6 +53,14 @@ fileConfigs:
         skip_master_url true
       </filter>
 
+      <filter **>
+        @type grep
+        <exclude>
+          key endpoint
+          pattern ratings
+        </exclude>
+      </filter>
+
       <match **>
         @type relabel
         @label @DISPATCH
