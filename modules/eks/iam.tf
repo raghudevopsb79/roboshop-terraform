@@ -168,17 +168,20 @@ resource "aws_iam_role" "ebs-sc-role" {
   name = "${var.name}-${var.env}-ebs-sc-role"
 
   assume_role_policy = jsonencode({
-    "Version" : "2012-10-17",
-    "Statement" : [
+    "Version": "2012-10-17",
+    "Statement": [
       {
-        "Effect" : "Allow",
-        "Principal" : {
-          "Service" : "pods.eks.amazonaws.com"
+        "Effect": "Allow",
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Principal": {
+          "Federated": "arn:aws:iam::739561048503:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/AA181460F3CC5481F66827D0F24D9A40"
         },
-        "Action" : [
-          "sts:AssumeRole",
-          "sts:TagSession"
-        ]
+        "Condition": {
+          "StringEquals": {
+            "oidc.eks.us-east-1.amazonaws.com/id/AA181460F3CC5481F66827D0F24D9A40:aud": "sts.amazonaws.com",
+            "oidc.eks.us-east-1.amazonaws.com/id/AA181460F3CC5481F66827D0F24D9A40:sub": "system:serviceaccount:kube-system:ebs-csi-controller-sa"
+          }
+        }
       }
     ]
   })
