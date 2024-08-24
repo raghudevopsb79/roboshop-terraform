@@ -39,18 +39,17 @@ module "eks" {
   add_ons     = each.value["add_ons"]
 
   subnet_ids     = module.network["main"].subnets[each.value["subnet_ref"]].subnets
-  opensearch_url = "10.0.0.1"
-  #opensearch_url = module.opensearch["main"].opensearch_url
+  opensearch_url = module.opensearch["main"].opensearch_url
 }
 
-# module "opensearch" {
-#   source   = "./modules/opensearch"
-#   for_each = var.opensearch
-#
-#   env = var.env
-#
-#   engine_version = each.value["engine_version"]
-#   instance_type  = each.value["instance_type"]
-#   name           = each.key
-# }
+module "opensearch" {
+  source   = "./modules/opensearch"
+  for_each = var.opensearch
+
+  env = var.env
+
+  engine_version = each.value["engine_version"]
+  instance_type  = each.value["instance_type"]
+  name           = each.key
+}
 
