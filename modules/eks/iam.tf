@@ -164,7 +164,7 @@ resource "aws_iam_role" "node-autoscaler-role" {
 }
 
 ## EBS Storage Class
-resource "aws_iam_role" "node-autoscaler-role" {
+resource "aws_iam_role" "ebs-sc-role" {
   name = "${var.name}-${var.env}-ebs-sc-role"
 
   assume_role_policy = jsonencode({
@@ -184,7 +184,7 @@ resource "aws_iam_role" "node-autoscaler-role" {
   })
 
   inline_policy {
-    name = "node-auto-scaler-policy"
+    name = "ebs-sc-role-policy"
 
     policy = jsonencode({
       "Version": "2012-10-17",
