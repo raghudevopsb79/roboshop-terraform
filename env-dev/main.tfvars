@@ -98,6 +98,12 @@ eks = {
         capacity_type  = "ON_DEMAND"
         instance_types = ["t3.medium"]
       }
+      t3_xlar_spot = {
+        min_nodes      = 1
+        max_nodes      = 5
+        capacity_type  = "SPOT"
+        instance_types = ["t3.xlarge"]
+      }
     }
     add_ons = {
       kube-proxy = {
