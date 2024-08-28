@@ -1,0 +1,45 @@
+name: TerraformApply
+
+on:
+  workflow_dispatch:
+
+jobs:
+  DEV:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: TerraformApply
+        run: |
+          terraform init -backend-config=env-dev/state.tfvars
+          terraform apply -auto-approve -var-file=env-dev/main.tfvars
+
+  QA:
+    needs: [DEV]
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: TerraformApply
+        run: |
+          echo terraform init -backend-config=env-dev/state.tfvars
+          echo terraform apply -auto-approve -var-file=env-dev/main.tfvars
+
+  UAT:
+    needs: [QA]
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: TerraformApply
+        run: |
+          echo terraform init -backend-config=env-dev/state.tfvars
+          echo terraform apply -auto-approve -var-file=env-dev/main.tfvars
+
+  PROD:
+    needs: [UAT]
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: TerraformApply
+        run: |
+          terraform init -backend-config=env-dev/state.tfvars
+          terraform apply -auto-approve -var-file=env-dev/main.tfvars
+
