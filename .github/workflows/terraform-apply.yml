@@ -16,6 +16,7 @@ jobs:
   QA:
     needs: [DEV]
     runs-on: self-hosted
+    environment: qa
     steps:
       - uses: actions/checkout@v4
       - name: TerraformApply
@@ -26,6 +27,7 @@ jobs:
   UAT:
     needs: [QA]
     runs-on: self-hosted
+    environment: uat
     steps:
       - uses: actions/checkout@v4
       - name: TerraformApply
@@ -36,6 +38,7 @@ jobs:
   PROD:
     needs: [UAT]
     runs-on: self-hosted
+    environment: prod
     steps:
       - uses: actions/checkout@v4
       - name: TerraformApply
