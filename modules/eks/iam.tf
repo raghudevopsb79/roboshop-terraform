@@ -168,18 +168,18 @@ resource "aws_iam_role" "ebs-sc-role" {
   name = "${var.name}-${var.env}-ebs-sc-role"
 
   assume_role_policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
+    "Version" : "2012-10-17",
+    "Statement" : [
       {
-        "Effect": "Allow",
-        "Action": "sts:AssumeRoleWithWebIdentity",
-        "Principal": {
-          "Federated": "arn:aws:iam::739561048503:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/AA181460F3CC5481F66827D0F24D9A40"
+        "Effect" : "Allow",
+        "Action" : "sts:AssumeRoleWithWebIdentity",
+        "Principal" : {
+          "Federated" : "arn:aws:iam::739561048503:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/AA181460F3CC5481F66827D0F24D9A40"
         },
-        "Condition": {
-          "StringEquals": {
-            "oidc.eks.us-east-1.amazonaws.com/id/AA181460F3CC5481F66827D0F24D9A40:aud": "sts.amazonaws.com",
-            "oidc.eks.us-east-1.amazonaws.com/id/AA181460F3CC5481F66827D0F24D9A40:sub": "system:serviceaccount:kube-system:ebs-csi-controller-sa"
+        "Condition" : {
+          "StringEquals" : {
+            "oidc.eks.us-east-1.amazonaws.com/id/AA181460F3CC5481F66827D0F24D9A40:aud" : "sts.amazonaws.com",
+            "oidc.eks.us-east-1.amazonaws.com/id/AA181460F3CC5481F66827D0F24D9A40:sub" : "system:serviceaccount:kube-system:ebs-csi-controller-sa"
           }
         }
       }
@@ -190,11 +190,11 @@ resource "aws_iam_role" "ebs-sc-role" {
     name = "ebs-sc-role-policy"
 
     policy = jsonencode({
-      "Version": "2012-10-17",
-      "Statement": [
+      "Version" : "2012-10-17",
+      "Statement" : [
         {
-          "Effect": "Allow",
-          "Action": [
+          "Effect" : "Allow",
+          "Action" : [
             "ec2:CreateSnapshot",
             "ec2:AttachVolume",
             "ec2:DetachVolume",
@@ -206,109 +206,109 @@ resource "aws_iam_role" "ebs-sc-role" {
             "ec2:DescribeVolumes",
             "ec2:DescribeVolumesModifications"
           ],
-          "Resource": "*"
+          "Resource" : "*"
         },
         {
-          "Effect": "Allow",
-          "Action": [
+          "Effect" : "Allow",
+          "Action" : [
             "ec2:CreateTags"
           ],
-          "Resource": [
+          "Resource" : [
             "arn:aws:ec2:*:*:volume/*",
             "arn:aws:ec2:*:*:snapshot/*"
           ]
         },
         {
-          "Effect": "Allow",
-          "Action": [
+          "Effect" : "Allow",
+          "Action" : [
             "ec2:DeleteTags"
           ],
-          "Resource": [
+          "Resource" : [
             "arn:aws:ec2:*:*:volume/*",
             "arn:aws:ec2:*:*:snapshot/*"
           ]
         },
         {
-          "Effect": "Allow",
-          "Action": [
+          "Effect" : "Allow",
+          "Action" : [
             "ec2:CreateVolume"
           ],
-          "Resource": "*",
-          "Condition": {
-            "StringLike": {
-              "aws:RequestTag/ebs.csi.aws.com/cluster": "true"
+          "Resource" : "*",
+          "Condition" : {
+            "StringLike" : {
+              "aws:RequestTag/ebs.csi.aws.com/cluster" : "true"
             }
           }
         },
         {
-          "Effect": "Allow",
-          "Action": [
+          "Effect" : "Allow",
+          "Action" : [
             "ec2:CreateVolume"
           ],
-          "Resource": "*",
-          "Condition": {
-            "StringLike": {
-              "aws:RequestTag/CSIVolumeName": "*"
+          "Resource" : "*",
+          "Condition" : {
+            "StringLike" : {
+              "aws:RequestTag/CSIVolumeName" : "*"
             }
           }
         },
         {
-          "Effect": "Allow",
-          "Action": [
+          "Effect" : "Allow",
+          "Action" : [
             "ec2:DeleteVolume"
           ],
-          "Resource": "*",
-          "Condition": {
-            "StringLike": {
-              "ec2:ResourceTag/ebs.csi.aws.com/cluster": "true"
+          "Resource" : "*",
+          "Condition" : {
+            "StringLike" : {
+              "ec2:ResourceTag/ebs.csi.aws.com/cluster" : "true"
             }
           }
         },
         {
-          "Effect": "Allow",
-          "Action": [
+          "Effect" : "Allow",
+          "Action" : [
             "ec2:DeleteVolume"
           ],
-          "Resource": "*",
-          "Condition": {
-            "StringLike": {
-              "ec2:ResourceTag/CSIVolumeName": "*"
+          "Resource" : "*",
+          "Condition" : {
+            "StringLike" : {
+              "ec2:ResourceTag/CSIVolumeName" : "*"
             }
           }
         },
         {
-          "Effect": "Allow",
-          "Action": [
+          "Effect" : "Allow",
+          "Action" : [
             "ec2:DeleteVolume"
           ],
-          "Resource": "*",
-          "Condition": {
-            "StringLike": {
-              "ec2:ResourceTag/kubernetes.io/created-for/pvc/name": "*"
+          "Resource" : "*",
+          "Condition" : {
+            "StringLike" : {
+              "ec2:ResourceTag/kubernetes.io/created-for/pvc/name" : "*"
             }
           }
         },
         {
-          "Effect": "Allow",
-          "Action": [
+          "Effect" : "Allow",
+          "Action" : [
             "ec2:DeleteSnapshot"
           ],
-          "Resource": "*",
-          "Condition": {
-            "StringLike": {
-              "ec2:ResourceTag/CSIVolumeSnapshotName": "*"
+          "Resource" : "*",
+          "Condition" : {
+            "StringLike" : {
+              "ec2:ResourceTag/CSIVolumeSnapshotName" : "*"
             }
           }
         },
         {
-          "Effect": "Allow",
-          "Action": [
+          "Effect" : "Allow",
+          "Action" : [
             "ec2:DeleteSnapshot"
           ],
-          "Resource": "*",
-          "Condition": {
-            "StringLike": {
-              "ec2:ResourceTag/ebs.csi.aws.com/cluster": "true"
+          "Resource" : "*",
+          "Condition" : {
+            "StringLike" : {
+              "ec2:ResourceTag/ebs.csi.aws.com/cluster" : "true"
             }
           }
         }
