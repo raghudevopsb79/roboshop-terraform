@@ -61,3 +61,16 @@ resource "aws_eks_access_entry" "main" {
   kubernetes_groups = []
   type              = "STANDARD"
 }
+
+resource "aws_eks_access_policy_association" "main" {
+  for_each      = var.eks_iam_role_access
+  cluster_name  = aws_eks_cluster.main.name
+  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/${each.value["policy"]}"
+  principal_arn = each.value["role_arn"]
+
+  access_scope {
+    type       = each.value["access_scope_type"]
+    namespaces = each.value["access_scope_namespaces"]
+  }
+}
+
