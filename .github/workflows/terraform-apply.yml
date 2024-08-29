@@ -13,7 +13,7 @@ jobs:
           terraform init -backend-config=env-dev/state.tfvars
           terraform apply -auto-approve -var-file=env-dev/main.tfvars
         env:
-          TF_VAR_VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
+          TF_VAR_vault_token: ${{ secrets.VAULT_TOKEN }}
 
   QA:
     needs: [DEV]
