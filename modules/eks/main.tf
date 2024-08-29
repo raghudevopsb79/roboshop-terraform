@@ -54,3 +54,10 @@ resource "aws_iam_openid_connect_provider" "main" {
   thumbprint_list = [data.external.oidc-thumbprint.result.thumbprint]
 }
 
+resource "aws_eks_access_entry" "main" {
+  for_each          = var.eks_iam_role_access
+  cluster_name      = aws_eks_cluster.main.name
+  principal_arn     = each.value["role_arn"]
+  kubernetes_groups = []
+  type              = "STANDARD"
+}

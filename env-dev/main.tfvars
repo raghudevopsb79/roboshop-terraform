@@ -125,6 +125,13 @@ eks = {
         resolve_conflicts_on_update = "OVERWRITE"
       }
     }
+
+    eks_iam_role_access = {
+      github_runner = {
+        role_arn = "arn:aws:iam::739561048503:role/github-runner-role"
+      }
+    }
+
   }
 
 }

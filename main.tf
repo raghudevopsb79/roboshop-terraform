@@ -48,8 +48,9 @@ module "opensearch" {
 
   env = var.env
 
-  engine_version = each.value["engine_version"]
-  instance_type  = each.value["instance_type"]
-  name           = each.key
+  engine_version      = each.value["engine_version"]
+  instance_type       = each.value["instance_type"]
+  name                = each.key
+  eks_iam_role_access = each.key["eks_iam_role_access"]
 }
 
