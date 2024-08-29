@@ -45,7 +45,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: TerraformApply
         run: |
-          terraform init -backend-config=env-dev/state.tfvars
-          terraform apply -auto-approve -var-file=env-dev/main.tfvars
+          terraform init -backend-config=env-prod/state.tfvars
+          terraform apply -auto-approve -var-file=env-prod/main.tfvars
         env:
           TF_VAR_vault_token: ${{ secrets.VAULT_TOKEN }}
