@@ -33,14 +33,14 @@ module "eks" {
 
   env = var.env
 
-  eks_version = each.value["eks_version"]
-  name        = each.key
-  node_groups = each.value["node_groups"]
-  add_ons     = each.value["add_ons"]
+  eks_version         = each.value["eks_version"]
+  name                = each.key
+  node_groups         = each.value["node_groups"]
+  add_ons             = each.value["add_ons"]
+  eks_iam_role_access = each.value["eks_iam_role_access"]
 
-  subnet_ids          = module.network["main"].subnets[each.value["subnet_ref"]].subnets
-  opensearch_url      = module.opensearch["main"].opensearch_url
-  eks_iam_role_access = each.key["eks_iam_role_access"]
+  subnet_ids     = module.network["main"].subnets[each.value["subnet_ref"]].subnets
+  opensearch_url = module.opensearch["main"].opensearch_url
 }
 
 module "opensearch" {
