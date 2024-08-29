@@ -23,8 +23,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: TerraformApply
         run: |
-          echo terraform init -backend-config=env-dev/state.tfvars
-          echo terraform apply -auto-approve -var-file=env-dev/main.tfvars
+          echo terraform init -backend-config=env-qa/state.tfvars
+          echo terraform apply -auto-approve -var-file=env-qa/main.tfvars
 
   UAT:
     needs: [QA]
@@ -34,8 +34,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: TerraformApply
         run: |
-          echo terraform init -backend-config=env-dev/state.tfvars
-          echo terraform apply -auto-approve -var-file=env-dev/main.tfvars
+          echo terraform init -backend-config=env-uat/state.tfvars
+          echo terraform apply -auto-approve -var-file=env-uat/main.tfvars
 
   PROD:
     needs: [UAT]
