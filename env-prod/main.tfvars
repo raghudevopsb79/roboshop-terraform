@@ -133,10 +133,16 @@ eks = {
         access_scope_type       = "cluster"
         access_scope_namespaces = []
       }
+
+      workstation = {
+        role_arn                = "arn:aws:iam::739561048503:role/workstation-role"
+        policy                  = "AmazonEKSClusterAdminPolicy"
+        access_scope_type       = "cluster"
+        access_scope_namespaces = []
+      }
     }
 
   }
-
 }
 
 opensearch = {
