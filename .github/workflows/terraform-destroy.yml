@@ -1,0 +1,27 @@
+name: TerraformDestroy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  DEV:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: TerraformDestroy
+        run: |
+          terraform init -backend-config=env-dev/state.tfvars
+          terraform destroy -auto-approve -var-file=env-dev/main.tfvars
+        env:
+          TF_VAR_vault_token: ${{ secrets.VAULT_TOKEN }}
+
+  PROD:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: TerraformDestroy
+        run: |
+          terraform init -backend-config=env-prod/state.tfvars
+          terraform destroy -auto-approve -var-file=env-prod/main.tfvars
+        env:
+          TF_VAR_vault_token: ${{ secrets.VAULT_TOKEN }}
