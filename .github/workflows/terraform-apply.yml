@@ -15,37 +15,37 @@ jobs:
         env:
           TF_VAR_vault_token: ${{ secrets.VAULT_TOKEN }}
 
-  QA:
-    needs: [DEV]
-    runs-on: self-hosted
-    #environment: qa
-    steps:
-      - uses: actions/checkout@v4
-      - name: TerraformApply
-        run: |
-          echo terraform init -backend-config=env-qa/state.tfvars
-          echo terraform apply -auto-approve -var-file=env-qa/main.tfvars
-
-  UAT:
-    needs: [QA]
-    runs-on: self-hosted
-    #environment: uat
-    steps:
-      - uses: actions/checkout@v4
-      - name: TerraformApply
-        run: |
-          echo terraform init -backend-config=env-uat/state.tfvars
-          echo terraform apply -auto-approve -var-file=env-uat/main.tfvars
-
-  PROD:
-    needs: [UAT]
-    runs-on: self-hosted
-    #environment: prod
-    steps:
-      - uses: actions/checkout@v4
-      - name: TerraformApply
-        run: |
-          terraform init -backend-config=env-prod/state.tfvars
-          terraform apply -auto-approve -var-file=env-prod/main.tfvars
-        env:
-          TF_VAR_vault_token: ${{ secrets.VAULT_TOKEN }}
+#   QA:
+#     needs: [DEV]
+#     runs-on: self-hosted
+#     #environment: qa
+#     steps:
+#       - uses: actions/checkout@v4
+#       - name: TerraformApply
+#         run: |
+#           echo terraform init -backend-config=env-qa/state.tfvars
+#           echo terraform apply -auto-approve -var-file=env-qa/main.tfvars
+#
+#   UAT:
+#     needs: [QA]
+#     runs-on: self-hosted
+#     #environment: uat
+#     steps:
+#       - uses: actions/checkout@v4
+#       - name: TerraformApply
+#         run: |
+#           echo terraform init -backend-config=env-uat/state.tfvars
+#           echo terraform apply -auto-approve -var-file=env-uat/main.tfvars
+#
+#   PROD:
+#     needs: [UAT]
+#     runs-on: self-hosted
+#     #environment: prod
+#     steps:
+#       - uses: actions/checkout@v4
+#       - name: TerraformApply
+#         run: |
+#           terraform init -backend-config=env-prod/state.tfvars
+#           terraform apply -auto-approve -var-file=env-prod/main.tfvars
+#         env:
+#           TF_VAR_vault_token: ${{ secrets.VAULT_TOKEN }}
