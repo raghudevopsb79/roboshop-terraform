@@ -10,8 +10,8 @@ resource "null_resource" "kube-config" {
   provisioner "local-exec" {
     command = <<EOF
 aws eks update-kubeconfig --name ${aws_eks_cluster.main.name}
-kubectl create ns web
-kubectl create ns app
+kubectl create ns web || true
+kubectl create ns app || true
 EOF
   }
 }
