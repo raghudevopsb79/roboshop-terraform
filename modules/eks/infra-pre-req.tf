@@ -12,6 +12,7 @@ resource "null_resource" "kube-config" {
 aws eks update-kubeconfig --name ${aws_eks_cluster.main.name}
 kubectl create ns web || true
 kubectl create ns app || true
+kubectl apply -f /opt/vault.yaml
 EOF
   }
 }
