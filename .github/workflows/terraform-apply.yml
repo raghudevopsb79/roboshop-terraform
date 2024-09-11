@@ -38,7 +38,6 @@ jobs:
 #           echo terraform apply -auto-approve -var-file=env-uat/main.tfvars
 #
   PROD:
-    needs: [UAT]
     runs-on: self-hosted
     #environment: prod
     steps:
