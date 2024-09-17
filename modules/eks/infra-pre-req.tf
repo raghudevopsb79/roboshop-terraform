@@ -15,6 +15,13 @@ kubectl create ns app || true
 kubectl apply -f /opt/vault.yaml
 EOF
   }
+
+  provisioner "local-exec" {
+    when    = destroy
+    command = <<EOF
+aws eks update-kubeconfig --name ${aws_eks_cluster.main.name}
+EOF
+  }
 }
 
 ## Nginx Ingress
