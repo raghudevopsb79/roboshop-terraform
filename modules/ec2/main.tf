@@ -39,6 +39,11 @@ resource "aws_instance" "main" {
   vpc_security_group_ids = [aws_security_group.main.id]
   subnet_id              = var.subnet_ids[0]
 
+  root_block_device {
+    encrypted = true
+    kms_key_id = var.kms_key_id
+  }
+
   tags = {
     Name = "${var.name}-${var.env}"
   }

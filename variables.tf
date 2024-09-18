@@ -6,4 +6,6 @@ variable "bastion_nodes" {}
 variable "zone_id" {}
 variable "eks" {}
 variable "opensearch" {}
+variable "kms_key_id" {}
+
 

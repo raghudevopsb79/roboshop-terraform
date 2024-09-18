@@ -1,6 +1,7 @@
 env           = "dev"
 bastion_nodes = ["172.31.80.25/32", "172.31.91.20/32"]
 zone_id       = "Z007676254S94NU47MG"
+kms_key_id    = "arn:aws:kms:us-east-1:739561048503:key/fd8267b0-5e14-4ba3-9a40-092772142775"
 
 
 vpc = {
@@ -54,94 +55,94 @@ db_servers = {
     }
   }
 
-  mysql = {
-    instance_type = "t3.small"
-    ports = {
-      mysql = {
-        port = 3306
-        cidr = ["10.0.4.0/24", "10.0.5.0/24"]
-      }
-    }
-  }
-
-  mongo = {
-    instance_type = "t3.small"
-    ports = {
-      mongo = {
-        port = 27017
-        cidr = ["10.0.4.0/24", "10.0.5.0/24"]
-      }
-    }
-  }
-
-  redis = {
-    instance_type = "t3.small"
-    ports = {
-      redis = {
-        port = 6379
-        cidr = ["10.0.4.0/24", "10.0.5.0/24"]
-      }
-    }
-  }
+#   mysql = {
+#     instance_type = "t3.small"
+#     ports = {
+#       mysql = {
+#         port = 3306
+#         cidr = ["10.0.4.0/24", "10.0.5.0/24"]
+#       }
+#     }
+#   }
+#
+#   mongo = {
+#     instance_type = "t3.small"
+#     ports = {
+#       mongo = {
+#         port = 27017
+#         cidr = ["10.0.4.0/24", "10.0.5.0/24"]
+#       }
+#     }
+#   }
+#
+#   redis = {
+#     instance_type = "t3.small"
+#     ports = {
+#       redis = {
+#         port = 6379
+#         cidr = ["10.0.4.0/24", "10.0.5.0/24"]
+#       }
+#     }
+#   }
 
 }
 
 eks = {
 
-  main = {
-    subnet_ref  = "app"
-    eks_version = "1.30"
-    node_groups = {
-      t3_med_on_dem = {
-        min_nodes      = 1
-        max_nodes      = 5
-        capacity_type  = "ON_DEMAND"
-        instance_types = ["t3.medium"]
-      }
-      t3_xlar_spot = {
-        min_nodes      = 1
-        max_nodes      = 5
-        capacity_type  = "SPOT"
-        instance_types = ["t3.xlarge"]
-      }
-    }
-    add_ons = {
-      kube-proxy = {
-        addon_version               = null
-        resolve_conflicts_on_update = "OVERWRITE"
-      }
-
-      vpc-cni = {
-        addon_version               = null
-        resolve_conflicts_on_update = "OVERWRITE"
-      }
-
-      eks-pod-identity-agent = {
-        addon_version               = null
-        resolve_conflicts_on_update = "OVERWRITE"
-      }
-      aws-ebs-csi-driver = {
-        addon_version               = null
-        resolve_conflicts_on_update = "OVERWRITE"
-      }
-    }
-
-    eks_iam_role_access = {
-      github_runner = {
-        role_arn                = "arn:aws:iam::739561048503:role/workstation-role"
-        policy                  = "AmazonEKSClusterAdminPolicy"
-        access_scope_type       = "cluster"
-        access_scope_namespaces = []
-      }
-    }
-
-  }
+#   main = {
+#     subnet_ref  = "app"
+#     eks_version = "1.30"
+#     node_groups = {
+#       t3_med_on_dem = {
+#         min_nodes      = 1
+#         max_nodes      = 5
+#         capacity_type  = "ON_DEMAND"
+#         instance_types = ["t3.medium"]
+#       }
+#       t3_xlar_spot = {
+#         min_nodes      = 1
+#         max_nodes      = 5
+#         capacity_type  = "SPOT"
+#         instance_types = ["t3.xlarge"]
+#       }
+#     }
+#     add_ons = {
+#       kube-proxy = {
+#         addon_version               = null
+#         resolve_conflicts_on_update = "OVERWRITE"
+#       }
+#
+#       vpc-cni = {
+#         addon_version               = null
+#         resolve_conflicts_on_update = "OVERWRITE"
+#       }
+#
+#       eks-pod-identity-agent = {
+#         addon_version               = null
+#         resolve_conflicts_on_update = "OVERWRITE"
+#       }
+#       aws-ebs-csi-driver = {
+#         addon_version               = null
+#         resolve_conflicts_on_update = "OVERWRITE"
+#       }
+#     }
+#
+#     eks_iam_role_access = {
+#       github_runner = {
+#         role_arn                = "arn:aws:iam::739561048503:role/workstation-role"
+#         policy                  = "AmazonEKSClusterAdminPolicy"
+#         access_scope_type       = "cluster"
+#         access_scope_namespaces = []
+#       }
+#     }
+#
+#   }
 
 }
 
 opensearch = {
-  main = {
-    instance_type  = "r6g.large.search"
-    engine_version = "OpenSearch_2.13"
-  }
+#   main = {
+#     instance_type  = "r6g.large.search"
+#     engine_version = "OpenSearch_2.13"
+#   }
 }

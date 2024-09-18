@@ -18,6 +18,7 @@ module "db" {
   bastion_nodes = var.bastion_nodes
   zone_id       = var.zone_id
   vault_token   = var.vault_token
+  kms_key_id    = var.kms_key_id
 
   name          = each.key
   ports         = each.value["ports"]
